@@ -1,0 +1,322 @@
+ _ _                  
+| (_)_ __  _   ___  __
+| | | '_ \| | | \ \/ /
+| | | | | | |_| |>  < 
+|_|_|_| |_|\__,_/_/\_\
+                      
+[iyappan@localhost ~]$ mysql
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.24 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| project1           |
+| sys                |
+| user1              |
+| user2              |
++--------------------+
+7 rows in set (0.36 sec)
+
+mysql> create database cyber
+    -> ^C
+mysql> create database cyber;
+Query OK, 1 row affected (0.30 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cyber              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| project1           |
+| sys                |
+| user1              |
+| user2              |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use cyber;
+Database changed
+mysql> create table login(id int, username varchar(30), password varchar(30));
+Query OK, 0 rows affected (0.81 sec)
+
+mysql> desc login
+    -> ^C
+mysql> desc login;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int         | YES  |     | NULL    |       |
+| username | varchar(30) | YES  |     | NULL    |       |
+| password | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.08 sec)
+
+mysql> alter table login add email varchar(50);
+Query OK, 0 rows affected (0.61 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc login;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int         | YES  |     | NULL    |       |
+| username | varchar(30) | YES  |     | NULL    |       |
+| password | varchar(30) | YES  |     | NULL    |       |
+| email    | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table login modify email varchar(60);
+Query OK, 0 rows affected (0.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc login;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int         | YES  |     | NULL    |       |
+| username | varchar(30) | YES  |     | NULL    |       |
+| password | varchar(30) | YES  |     | NULL    |       |
+| email    | varchar(60) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table login remove email;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'email' at line 1
+mysql> alter table login drop email;
+Query OK, 0 rows affected (1.42 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc login;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int         | YES  |     | NULL    |       |
+| username | varchar(30) | YES  |     | NULL    |       |
+| password | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into login values(1,"iyappan","kiyappan104")
+    -> ^C
+mysql> insert into login values(1,"iyappan","kiyappan104");
+Query OK, 1 row affected (0.27 sec)
+
+mysql> select*from login;
++------+----------+-------------+
+| id   | username | password    |
++------+----------+-------------+
+|    1 | iyappan  | kiyappan104 |
++------+----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select id from login;
++------+
+| id   |
++------+
+|    1 |
++------+
+1 row in set (0.01 sec)
+
+mysql> select username from login;
++----------+
+| username |
++----------+
+| iyappan  |
++----------+
+1 row in set (0.00 sec)
+
+mysql> insert into login values(2 ,"murugavel","murugavel1234,");
+Query OK, 1 row affected (0.16 sec)
+
+mysql> selecct * from login;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selecct * from login' at line 1
+mysql> select * from login;
++------+-----------+----------------+
+| id   | username  | password       |
++------+-----------+----------------+
+|    1 | iyappan   | kiyappan104    |
+|    2 | murugavel | murugavel1234, |
++------+-----------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> update login set password="iyappan9578" where username = "iyappan";
+Query OK, 1 row affected (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from login;
++------+-----------+----------------+
+| id   | username  | password       |
++------+-----------+----------------+
+|    1 | iyappan   | iyappan9578    |
+|    2 | murugavel | murugavel1234, |
++------+-----------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> delete login where username = "murugavel";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where username = "murugavel"' at line 1
+mysql> delete from login  where username = "murugavel";
+Query OK, 1 row affected (0.32 sec)
+
+mysql> select*from login;
++------+----------+-------------+
+| id   | username | password    |
++------+----------+-------------+
+|    1 | iyappan  | iyappan9578 |
++------+----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> insert into login values(2 ,"murugavel","murugavel1234,");
+Query OK, 1 row affected (0.21 sec)
+
+mysql> insert into login values(3,"deepak","deepak1234,");
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select*from login;
++------+-----------+----------------+
+| id   | username  | password       |
++------+-----------+----------------+
+|    1 | iyappan   | iyappan9578    |
+|    2 | murugavel | murugavel1234, |
+|    3 | deepak    | deepak1234,    |
++------+-----------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> select*from login order by id desc;
++------+-----------+----------------+
+| id   | username  | password       |
++------+-----------+----------------+
+|    3 | deepak    | deepak1234,    |
+|    2 | murugavel | murugavel1234, |
+|    1 | iyappan   | iyappan9578    |
++------+-----------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> select*from login where id=1;
++------+----------+-------------+
+| id   | username | password    |
++------+----------+-------------+
+|    1 | iyappan  | iyappan9578 |
++------+----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select*from login where id=1 and password="deepak1234,";
+Empty set (0.00 sec)
+
+mysql> select*from login where id=1 or password="deeapk1234,";
++------+----------+-------------+
+| id   | username | password    |
++------+----------+-------------+
+|    1 | iyappan  | iyappan9578 |
++------+----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select*from login where id=1 or password="deepak1234,";
++------+----------+-------------+
+| id   | username | password    |
++------+----------+-------------+
+|    1 | iyappan  | iyappan9578 |
+|    3 | deepak   | deepak1234, |
++------+----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into login values(4,"iyappan","iyappan9344,");
+Query OK, 1 row affected (0.21 sec)
+
+mysql> select*from login;
++------+-----------+----------------+
+| id   | username  | password       |
++------+-----------+----------------+
+|    1 | iyappan   | iyappan9578    |
+|    2 | murugavel | murugavel1234, |
+|    3 | deepak    | deepak1234,    |
+|    4 | iyappan   | iyappan9344,   |
++------+-----------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select*from login where username="iyappan";
++------+----------+--------------+
+| id   | username | password     |
++------+----------+--------------+
+|    1 | iyappan  | iyappan9578  |
+|    4 | iyappan  | iyappan9344, |
++------+----------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select distinct from login where username="iyappan";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from login where username="iyappan"' at line 1
+mysql> select distinct username from login where username="iyappan";
++----------+
+| username |
++----------+
+| iyappan  |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select distinct username,password from login where username="iyappan";
++----------+--------------+
+| username | password     |
++----------+--------------+
+| iyappan  | iyappan9578  |
+| iyappan  | iyappan9344, |
++----------+--------------+
+2 rows in set (0.02 sec)
+
+mysql> select*from login where username like 'i%';
++------+----------+--------------+
+| id   | username | password     |
++------+----------+--------------+
+|    1 | iyappan  | iyappan9578  |
+|    4 | iyappan  | iyappan9344, |
++------+----------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select*from login;
++------+-----------+----------------+
+| id   | username  | password       |
++------+-----------+----------------+
+|    1 | iyappan   | iyappan9578    |
+|    2 | murugavel | murugavel1234, |
+|    3 | deepak    | deepak1234,    |
+|    4 | iyappan   | iyappan9344,   |
++------+-----------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select*from login limit 1;
++------+----------+-------------+
+| id   | username | password    |
++------+----------+-------------+
+|    1 | iyappan  | iyappan9578 |
++------+----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select*from login limit 2;
++------+-----------+----------------+
+| id   | username  | password       |
++------+-----------+----------------+
+|    1 | iyappan   | iyappan9578    |
+|    2 | murugavel | murugavel1234, |
++------+-----------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
